@@ -177,6 +177,9 @@ macro(bpf_object name input)
     DEPENDS ${BPF_O_FILE}
     COMMENT "[skel]  Building BPF skeleton: ${name}")
 
+  add_library(${name}_for_IDE OBJECT ${BPF_C_FILE})
+  target_include_directories(${name}_for_IDE PRIVATE ${GENERATED_VMLINUX_DIR})
+
   add_library(${OUTPUT_TARGET} INTERFACE)
   target_sources(${OUTPUT_TARGET} INTERFACE ${BPF_SKEL_FILE})
   target_include_directories(${OUTPUT_TARGET} INTERFACE ${CMAKE_CURRENT_BINARY_DIR})
